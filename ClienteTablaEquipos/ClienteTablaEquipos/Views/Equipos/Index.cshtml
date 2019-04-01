@@ -1,0 +1,46 @@
+﻿@using ClienteTablaEquipos.Models
+@model List<Equipo>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<form method="post">
+    <div>
+        <input type="text" name="division" class="form-control" placeholder="División" />
+        <br/>
+        <button type="submit" class="btn btn-success">
+            Mostrar equipos
+        </button>
+    </div>
+</form>
+@if (Model != null)
+{
+    <hr/>
+    <table class="table">
+        <tr>
+            <th>DIVISIÓN</th>
+            <th>ID EQUIPO</th>
+            <th>NOMBRE</th>
+            <th>CIUDAD</th>
+            <th>ENTRENADOR</th>
+            <th>ESTADIO</th>
+            <th></th>
+        </tr>
+        @foreach (Equipo equipo in Model)
+        {
+            <tr>
+                <td>@equipo.PartitionKey</td>
+                <td>@equipo.RowKey</td>
+                <td>@equipo.Nombre</td>
+                <td>@equipo.Ciudad</td>
+                <td>@equipo.Entrenador</td>
+                <td>@equipo.Estadio</td>
+                <td>@Html.ActionLink("Editar", "Edit", new { id = equipo.RowKey, division = equipo.PartitionKey }) 
+                    @Html.ActionLink("Eliminar", "Delete", new { id = equipo.RowKey, division = equipo.PartitionKey })
+                </td>
+            </tr>
+        }
+    </table>
+}
+<h2 style="color: red">@ViewBag.Mensaje</h2>
+
